@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+{% block content %}
+{% image page.image original as hero_image %}
+<div class="container">
+	<div class="jumbotron jumbotron-fluid mb-3 pt-0 pb-0 bg-lightblue position-relative">
+		<div class="pl-4 pr-0 h-100 tofront">
+			<div class="row justify-content-between">
+				<div class="col-md-6 pt-6 pb-6 align-self-center">
+					<h1 class="secondfont mb-3 font-weight-bold">{{ page.hero_text }}</h1>
+					<p class="mb-3">
+                        {{ page.hero_subtext }}
+					</p>
+					<a href="{{ page.hero_cta_link.url }}" class="btn btn-dark">{{ page.hero_cta }}</a>
+				</div>
+<!--				<div class="col-md-6 d-none d-md-block pr-0" style="background-size:cover;background-image:url({% static 'img/demo/home.jpg' %});">	</div>-->
+                <div class="col-md-6 d-none d-md-block pr-0" style="background-size:cover;background-image:url({{ hero_image.url }});">	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% if page.primary_highlight or page.first_secondary_highlight or page.second_secondary_highlight or page.third_secondary_highlight %}
+<div class="container pt-4 pb-4">
+	<div class="row">
+		{% if page.primary_highlight %}
+		{% with primary_highlight=page.primary_highlight.specific %}
+		{% image primary_highlight.image original as primary_image %}
+		<div class="col-lg-6">
+			<div class="card border-0 mb-4 box-shadow h-xl-300">
+                <div style="background-image: url({{ primary_image.url }}); height: 150px;    background-size: cover;    background-repeat: no-repeat;"></div>
+				<div class="card-body px-0 pb-0 d-flex flex-column align-items-start">
+					<h2 class="h4 font-weight-bold">
+					<a class="text-dark" href="{{ page.primary_highlight.url }}">{{ primary_highlight.header_title }}</a>
+					</h2>
+					<p class="card-text">
+						{{ primary_highlight.header_subtitle }}
+					</p>
+					<div>
+						<small class="d-block">{{ primary_highlight.owner.username }}</small>
+						<small class="text-muted">{{ primary_highlight.date }}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endwith %}
+		{% endif %}
+		{% if page.first_secondary_highlight or page.second_secondary_highlight or page.third_secondary_highlight %}
+		<div class="col-lg-6">
+			<div class="flex-md-row mb-4 box-shadow h-xl-300">
+				{% if page.first_secondary_highlight %}
+				{% with first_secondary=page.first_secondary_highlight.specific %}
+				{% image first_secondary.image original as first_secondary_image %}
+				<div class="mb-3 d-flex align-items-center">
+					<img height="80" src="{{ first_secondary_image.url }}">
+					<div class="pl-3">
+						<h2 class="mb-2 h6 font-weight-bold">
+						<a class="text-dark" href="{{ first_secondary.url }}">{{ first_secondary.header_title }}</a>
+						</h2>
+						<div class="card-text text-muted small">
+							{{ first_secondary.header_subtitle }}
+						</div>
+						<small class="text-muted">{{ first_secondary.date }}</small>
+					</div>
+				</div>
+				{% endwith %}
+				{% endif %}
+				{% if page.second_secondary_highlight %}
+				{% with second_secondary=page.second_secondary_highlight.specific %}
+				{% image second_secondary.image original as second_secondary_image %}
+				<div class="mb-3 d-flex align-items-center">
+					<img height="80" src="{{ second_secondary_image.url }}">
+					<div class="pl-3">
+						<h2 class="mb-2 h6 font-weight-bold">
+						<a class="text-dark" href="{{ second_secondary.url }}">{{ second_secondary.header_title }}</a>
+						</h2>
+						<div class="card-text text-muted small">
+							{{ second_secondary.header_subtitle }}
+						</div>
+						<small class="text-muted">{{ second_secondary.date }}</small>
+					</div>
+				</div>
+				{% endwith %}
+				{% endif %}
+				{% if page.third_secondary_highlight %}
+				{% with third_secondary=page.third_secondary_highlight.specific %}
+				{% image third_secondary.image original as third_secondary_image %}
+				<div class="mb-3 d-flex align-items-center">
+					<img height="80" src="{{ third_secondary_image.url }}">
+					<div class="pl-3">
+						<h2 class="mb-2 h6 font-weight-bold">
+						<a class="text-dark" href="{{ third_secondary.url }}">{{ third_secondary.header_title }}</a>
+						</h2>
+						<div class="card-text text-muted small">
+							{{ third_secondary.header_subtitle }}
+						</div>
+						<small class="text-muted">{{ third_secondary.date }}</small>
+					</div>
+				</div>
+				{% endwith %}
+				{% endif %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+{% endif %}
+
+<div class="container">
+	<div class="row justify-content-between">
+		<div class="col-md-8">
+			<h5 class="font-weight-bold spanborder"><span>All Stories</span></h5>
+			{% for child_page in page.get_children %}
+			{% with spec_child_page=child_page.specific %}
+			{% image spec_child_page.image original as child_page_image %}
+			<div class="mb-3 d-flex justify-content-between">
+				<div class="pr-3">
+					<h2 class="mb-1 h4 font-weight-bold">
+					<a class="text-dark" href="{{ child_page.url }}">{{ child_page.title }}</a>
+					</h2>
+					<p>
+						{{ spec_child_page.header_title }}
+					</p>
+					<div class="card-text text-muted small">
+						{{ child_page.owner.username }}
+					</div>
+					<small class="text-muted">{{ spec_child_page.date }}</small>
+				</div>
+				<img height="120" src="{{ child_page_image.url }}">
+			</div>
+			{% endwith %}
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+<div class="container mt-5">
+	<footer class="bg-white border-top p-3 text-muted small">
+	<div class="row align-items-center justify-content-between">
+		<div>
+            <span class="navbar-brand mr-2"><strong>Mundana</strong></span> Copyright &copy;
+			<script>document.write(new Date().getFullYear())</script>
+			 . All rights reserved.
+		</div>
+		<div>
+			Made with <a target="_blank" class="text-secondary font-weight-bold" href="https://www.wowthemes.net/mundana-free-html-bootstrap-template/">Mundana Theme</a> by WowThemes.net.
+		</div>
+	</div>
+	</footer>
+</div>
+
+{% endblock content %}
