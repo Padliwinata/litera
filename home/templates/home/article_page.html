@@ -118,10 +118,18 @@
                 <div style="background-image: url({{ primary_image.url }}); height: 150px;    background-size: cover;    background-repeat: no-repeat;"></div>
 				<div class="card-body px-0 pb-0 d-flex flex-column align-items-start">
 					<h2 class="h4 font-weight-bold">
-					<a class="text-dark" href="{{ page.primary_highlight.url }}">{{ primary_highlight.header_title }}</a>
+						{% if primary_highlight.content_type.model == 'homepage' %}
+							<a class="text-dark" href="{{ primary_highlight.url }}">{{ primary_highlight.hero_text }}</a>
+						{% else %}
+							<a class="text-dark" href="{{ primary_highlight.url }}">{{ primary_highlight.header_title }}</a>
+						{% endif %}
 					</h2>
 					<p class="card-text">
+						{% if primary_highlight.content_type.model == 'homepage' %}
+						{{ primary_highlight.hero_subtext }}
+						{% else %}
 						{{ primary_highlight.header_subtitle }}
+						{% endif %}
 					</p>
 					<div>
 						<small class="d-block">{{ primary_highlight.author.username }}</small>
