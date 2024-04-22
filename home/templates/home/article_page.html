@@ -5,7 +5,7 @@
 
 {% block content %}
 {% image page.image original as image %}
-{% image page.owner.profile_picture fill-70x70 as profile %}
+{% image page.specific.author.profile_picture fill-70x70 as profile %}
 <div class="container">
 	<div class="jumbotron jumbotron-fluid mb-3 pl-0 pt-0 pb-0 bg-white position-relative">
 		<div class="h-100 tofront">
@@ -20,7 +20,7 @@
 					</p>
 					<div class="d-flex align-items-center">
 						<img class="rounded-circle" src="{{ profile.url }}" width="70">
-						<small class="ml-2">{{ page.owner.username }} <span class="text-muted d-block">A few hours ago &middot; 5 min. read</span>
+						<small class="ml-2">{{ page.specific.author.username }} <span class="text-muted d-block">A few hours ago &middot; 5 min. read</span>
 						</small>
 					</div>
 				</div>
@@ -124,7 +124,7 @@
 						{{ primary_highlight.header_subtitle }}
 					</p>
 					<div>
-						<small class="d-block">{{ primary_highlight.owner.username }}</small>
+						<small class="d-block">{{ primary_highlight.author.username }}</small>
 						<small class="text-muted">{{ primary_highlight.date }}</small>
 					</div>
 				</div>

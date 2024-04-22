@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 from wagtail.models import Page
@@ -8,6 +9,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
 
 class HomePage(Page):
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, default=None)
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -77,6 +79,7 @@ class HomePage(Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('author'),
         MultiFieldPanel(
             [
                 FieldPanel('image'),
@@ -95,6 +98,7 @@ class HomePage(Page):
 
 
 class ArticlePage(Page):
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, default=None)
     header_title = models.CharField(
         blank=True,
         max_length=255
@@ -151,6 +155,7 @@ class ArticlePage(Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('author'),
         FieldPanel('header_title'),
         FieldPanel('header_subtitle'),
         FieldPanel('image'),
