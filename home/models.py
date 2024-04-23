@@ -10,6 +10,10 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
 class HomePage(Page):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, default=None)
+    label = models.CharField(
+        blank=True,
+        max_length=50
+    )
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -80,6 +84,7 @@ class HomePage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('author'),
+        FieldPanel('label'),
         MultiFieldPanel(
             [
                 FieldPanel('image'),
@@ -99,6 +104,10 @@ class HomePage(Page):
 
 class ArticlePage(Page):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, default=None)
+    label = models.CharField(
+        blank=True,
+        max_length=50
+    )
     header_title = models.CharField(
         blank=True,
         max_length=255
@@ -156,6 +165,7 @@ class ArticlePage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('author'),
+        FieldPanel('label'),
         FieldPanel('header_title'),
         FieldPanel('header_subtitle'),
         FieldPanel('image'),
