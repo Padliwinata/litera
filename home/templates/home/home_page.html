@@ -112,7 +112,7 @@
 	<div class="row justify-content-between">
 		<div class="col-md-8">
 			<h2 class="font-weight-bold spanborder"><span>All Stories</span></h2>
-			{% for child_page in page.get_children %}
+			{% for child_page in homepage_highlights %}
 			{% with spec_child_page=child_page.specific %}
 			{% image spec_child_page.image original as child_page_image %}
 			<div class="mb-3 d-flex justify-content-between">

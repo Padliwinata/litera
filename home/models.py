@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.shortcuts import render
 
 from wagtail.models import Page
 from wagtail.fields import RichTextField
@@ -100,6 +101,21 @@ class HomePage(Page):
         FieldPanel('second_secondary_highlight'),
         FieldPanel('third_secondary_highlight')
     ]
+
+    def get_children_pages_for_homepage(self):
+        artikel = ArticlePage.objects.filter(header_title='LRI: Artikel')
+        opini = ArticlePage.objects.filter(header_title='LRI: Opini')
+
+        return artikel.union(opini)
+
+    def serve(self, request, *args, **kwargs):
+        homepage_highlights = self.get_children_pages_for_homepage()
+
+        context = self.get_context(request)
+
+        context['homepage_highlights'] = homepage_highlights
+
+        return render(request, 'home/home_page.html', context)
 
 
 class ArticlePage(Page):
