@@ -3,6 +3,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RCGB5XS7LK"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-RCGB5XS7LK');
+        </script>
         <meta charset="utf-8" />
         <title>
             {% block title %}
@@ -34,14 +42,6 @@
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
         {% endblock %}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RCGB5XS7LK"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-RCGB5XS7LK');
-        </script>
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
