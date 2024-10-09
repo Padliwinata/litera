@@ -153,58 +153,49 @@
                 {% endfor %}
 
             {% else %}
-
                 {# Display the current page's children and their children if the title is not "Litera Rasa Institute" #}
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-md-8">
-                            <h2 class="font-weight-bold spanborder"><span>All Stories</span></h2>
-                            {% for child_page in page.get_children.live %}
-                                {% with spec_child_page=child_page.specific %}
-                                    {% image spec_child_page.image original as child_page_image %}
-                                    <div class="mb-3 d-flex justify-content-between">
-                                        <div class="pr-3">
-                                            <h2 class="mb-1 h4 font-weight-bold">
-                                                <a class="text-dark" href="{{ child_page.url }}">{{ child_page.title }}</a>
-                                            </h2>
-                                            <p>
-                                                {{ spec_child_page.header_title }}
-                                            </p>
-                                            <div class="card-text text-muted small">
-                                                {{ spec_child_page.author.username }}
-                                            </div>
-                                            <small class="text-muted">{{ spec_child_page.date }}</small>
-                                        </div>
-                                        <img height="120" src="{{ child_page_image.url }}">
-                                    </div>
+					{% for child_page in page.get_children.live %}
+						{% with spec_child_page=child_page.specific %}
+							{% image spec_child_page.image original as child_page_image %}
+							<div class="mb-3 d-flex justify-content-between">
+								<div class="pr-3">
+									<h2 class="mb-1 h4 font-weight-bold">
+										<a class="text-dark" href="{{ child_page.url }}">{{ child_page.title }}</a>
+									</h2>
+									<p>
+										{{ spec_child_page.header_title }}
+									</p>
+									<div class="card-text text-muted small">
+										{{ spec_child_page.author.username }}
+									</div>
+									<small class="text-muted">{{ spec_child_page.date }}</small>
+								</div>
+								<img height="120" src="{{ child_page_image.url }}">
+							</div>
 
-                                    {# Loop through child pages of this child page #}
-                                    {% for grandchild_page in child_page.get_children.live %}
-                                        {% with spec_grandchild_page=grandchild_page.specific %}
-                                            <div class="mb-3 d-flex justify-content-between ml-4">
-                                                <div class="pr-3">
-                                                    <h3 class="mb-1 h5 font-weight-bold">
-                                                        <a class="text-dark" href="{{ grandchild_page.url }}">{{ grandchild_page.title }}</a>
-                                                    </h3>
-                                                    <p>
-                                                        {{ spec_grandchild_page.header_title }}
-                                                    </p>
-                                                    <div class="card-text text-muted small">
-                                                        {{ spec_grandchild_page.author.username }}
-                                                    </div>
-                                                    <small class="text-muted">{{ spec_grandchild_page.date }}</small>
-                                                </div>
-                                                <img height="80" src="{{ grandchild_page_image.url }}">
-                                            </div>
-                                        {% endwith %}
-                                    {% endfor %}
+							{# Loop through child pages of this child page #}
+							{% for grandchild_page in child_page.get_children.live %}
+								{% with spec_grandchild_page=grandchild_page.specific %}
+									<div class="mb-3 d-flex justify-content-between ml-4">
+										<div class="pr-3">
+											<h3 class="mb-1 h5 font-weight-bold">
+												<a class="text-dark" href="{{ grandchild_page.url }}">{{ grandchild_page.title }}</a>
+											</h3>
+											<p>
+												{{ spec_grandchild_page.header_title }}
+											</p>
+											<div class="card-text text-muted small">
+												{{ spec_grandchild_page.author.username }}
+											</div>
+											<small class="text-muted">{{ spec_grandchild_page.date }}</small>
+										</div>
+										<img height="80" src="{{ grandchild_page_image.url }}">
+									</div>
+								{% endwith %}
+							{% endfor %}
 
-                                {% endwith %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-
+						{% endwith %}
+					{% endfor %}
             {% endif %}
         </div>
     </div>
