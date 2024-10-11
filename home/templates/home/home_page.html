@@ -121,7 +121,7 @@
                     {% with spec_child_page=child_page.specific %}
 
                         {# Check if the child page title matches "LRI: Artikel" or "LRI: Opini" #}
-                        {% if spec_child_page.title == "LRI: Artikel" or spec_child_page.title == "LRI: Opini" %}
+                        {% if spec_child_page.title == "LRI: Artikel" or spec_child_page.title == "LRI: Opini" or spec_child_page.title == "LRI: Opini" %}
 
                             {# Loop through the live children (grandchildren) of the selected child pages #}
                             {% for grandchild_page in child_page.get_children.live %}
